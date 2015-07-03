@@ -5,35 +5,16 @@ import Model.*;
 
 public class PessoaController {
 
-	private static Scanner ler;
-	private static int entrada;
-
-	public static void main(String[] args) {
-		menu();		
-	}	
-	
-	public static void menu(){
-		do{
-			System.out.println(".... Cadastro de pessoas .....");
-			System.out.println("1 - Cadastro de novo contato: \n"
-							 + "2 - Mostrar contatos cadastrados: \n"
-							 + "0 - entrada");
-			System.out.print("Digite uma opção: ");
-			entrada = ler.nextInt();
-			System.out.print("\n");
-			
-			switch(entrada){
-				case 1:
-					inserirContato();
-					break;
-				case 2:
-					break;
-				case 0:
-					break;
-				default:
-					System.out.println("Entrada Inválida, digite novamente");				
-			}
-		}while(entrada != 0);		
+	public static void inserirContato(Pessoa novaPessoa){
+		/*procura o nome da pessoa no banco não cadastrar duas com o mesmo nome*/
+		PessoaDAO.inserirPessoaBanco(novaPessoa.getId(), novaPessoa.getNome());
+		
+		/*procura o endereco no banco, se ja esta cadastrado pega o id deste,
+		 * senão cadastra o endereco com o novo id*/
+		EnderecoDAO.inserirEnderecoBanco(novaPessoa.getEndereco());		
+		
+		/*cadastra os telefones do novo contato e pega o id*/
+		NumeroTelefoneDAO.inserirTelfoneBanco(novaPessoa.getTelefones());
 	}
 
 }
