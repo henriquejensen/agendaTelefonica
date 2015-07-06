@@ -1,9 +1,18 @@
 package Model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class NumeroTelefone {
 	
+	@Id @GeneratedValue
+	private Long idTelefone;
 	private String numero;
 	private String ddd;
+	@ManyToOne
 	private Pessoa pessoa;
 	
 	public Pessoa getPessoa() {

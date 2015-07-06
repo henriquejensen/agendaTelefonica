@@ -7,7 +7,42 @@ import org.hibernate.cfg.AnnotationConfiguration;
 
 public class PessoaDAO {
 	
-	public static void inserirPessoaBanco(long id, String nome) {
+	private static Session session;
+	
+	public PessoaDAO(){
+		session = iniciarSessaoBanco();
+	}
+	
+	public static void inserirPessoaBanco(Pessoa novaPessoa) {		
+		Transaction transacao = session.beginTransaction();
+		session.save(novaPessoa);
+		transacao.commit();
+	}
+	
+	public static void atualizarPessoaBanco(Pessoa novaPessoa){
+		 
+		/** carrega o produto do banco de dados */
+		Pessoa pessoaAtualizar = (Pessoa) session.load(Pessoa.class, 1L);
+		
+		Transaction transacao = session.beginTransaction();
+		long idAtualizar = pessoaAtualizar.getId();
+		pessoaAtualizar = novaPessoa;
+		pessoaAtualizar.setId(idAtualizar);
+		session.update(pessoaAtualizar);
+		transacao.commit();
+	}
+	
+	public static void removerPessoaBanco(){
+	     
+		/** carrega o produto do banco de dados */
+	    Pessoa pessoaDelete = (Pessoa) session.load(Pessoa.class, 1L);
+	     
+	    Transaction tx = session.beginTransaction();
+	    session.update(pessoaDelete);
+	    tx.commit();
+	}
+	
+	private static Session iniciarSessaoBanco(){
 		/** Cria uma configuração*/
 		AnnotationConfiguration configuration = new AnnotationConfiguration();
 		
@@ -15,27 +50,8 @@ public class PessoaDAO {
 		configuration.configure();
 		
 		SessionFactory factory = configuration.buildSessionFactory();
-		Session session = factory.openSession();		
-		
-		Transaction transacao = session.beginTransaction();
-		session.save(id);
-		transacao.commit();
-	}
-	
-	public static void atualizarNomePessoaBanco(Pessoa novaPessoa){
-		AnnotationConfiguration configuration = new AnnotationConfiguration();
-		
-		configuration.configure();
-	     
-		SessionFactory factory = configuration.buildSessionFactory();
 		Session session = factory.openSession();
-		 
-		// carrega o produto do banco de dados
-		Pessoa produto = (Pessoa) session.load(Pessoa.class, 1L);
 		
-		Transaction transacao = session.beginTransaction();
-		produto.setNome(novaPessoa.getNome());
-		session.update(produto);
-		transacao.commit();
-	}
+		return session;
+	}	
 }

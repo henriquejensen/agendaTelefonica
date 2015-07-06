@@ -25,5 +25,7 @@
     <property name="format_sql">true</property>
     
     <mapping class="Model.Pessoa" />
+    <mapping class="Model.Endereco" />
+    <mapping class="Model.NumeroTelefone" />
   </session-factory>
 </hibernate-configuration>

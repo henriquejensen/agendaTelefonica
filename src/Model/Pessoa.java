@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Pessoa {	
@@ -12,7 +13,9 @@ public class Pessoa {
 	@Id @GeneratedValue
 	private Long id;
 	private String nome;
+	@OneToOne
 	private Endereco endereco;
+	boolean deletadoBanco = false;
 	private ArrayList telefones = new ArrayList();
 	
 	public ArrayList getTelefones() {
@@ -31,6 +34,10 @@ public class Pessoa {
 		return id;
 	}
 	
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -41,6 +48,14 @@ public class Pessoa {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public boolean isDeletadoBanco() {
+		return deletadoBanco;
+	}
+
+	public void setDeletadoBanco(boolean deletadoBanco) {
+		this.deletadoBanco = deletadoBanco;
 	}
 
 }
