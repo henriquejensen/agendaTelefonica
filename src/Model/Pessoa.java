@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.ArrayList;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,17 +13,8 @@ public class Pessoa {
 	private String nome;
 	@OneToOne
 	private Endereco endereco;
-	boolean deletadoBanco = false;
-	private ArrayList telefones = new ArrayList();
+	boolean deletadoBanco = false;	
 	
-	public ArrayList getTelefones() {
-		return telefones;
-	}
-
-	public void setTelefone(NumeroTelefone telefone) {
-		this.telefones.add(telefones);
-	}
-
 	public void setNome(String nome){
 		this.nome = nome;
 	}

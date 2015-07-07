@@ -1,30 +1,33 @@
 package Controller;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import br.com.caelum.vraptor.Resource;
 import Model.*;
 
+@Resource
 public class PessoaController {
-
-	private static PessoaDAO pessoaBanco = new PessoaDAO();
-	private static EnderecoDAO enderecoBanco = new EnderecoDAO();
-
-	public static void inserirContato(Pessoa novaPessoa){
-		/*procura o nome da pessoa no banco não cadastrar duas com o mesmo nome*/
-		Endereco idEndereco = enderecoBanco.inserirEnderecoBanco(novaPessoa.getEndereco());
+	
+	private static EnderecoDAO endereco = new EnderecoDAO();
+	private static PessoaDAO pessoa = new PessoaDAO();
+	private static NumeroTelefoneDAO telefoneBanco = new NumeroTelefoneDAO();
+		
+	public static boolean inserirContato(Pessoa novaPessoa, ArrayList<NumeroTelefone> novoTelefone){
+		
+		/**insere o endereço no banco e retorna o id deste endereço para ter o relacionamento
+		 * com a tabela pessoa*/
+		Endereco idEndereco = endereco.inserirEnderecoBanco(novaPessoa.getEndereco());		
 		novaPessoa.setEndereco(idEndereco);
-		pessoaBanco.inserirPessoaBanco(novaPessoa);
 		
-		/**
-		 * pegar o id que retorna da gravacao da pessoa quando faz a gravacao dela
-		 * passar esse id para cada telefone que for gravado
-		 * */
+		Pessoa idPessoa = pessoa.inserirPessoaBanco(novaPessoa);
+					
+		for(int i=0; i < novoTelefone.size(); i++) {
+			novoTelefone.get(i).setPessoa(idPessoa);		
+			telefoneBanco.inserirTelefoneBanco(novoTelefone.get(i));
+		}		
 		
-		/**procura o endereco no banco, se ja esta cadastrado pega o id deste,
-		 * senão cadastra o endereco com o novo id
-		EnderecoDAO.inserirEnderecoBanco(novaPessoa);		
-		
-		/**cadastra os telefones do novo contato e pega o id
-		NumeroTelefoneDAO.inserirTelfoneBanco(novaPessoa);*/
+		return true;
 	}
 
 }

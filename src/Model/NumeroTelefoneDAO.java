@@ -1,16 +1,25 @@
 package Model;
 
-import java.util.ArrayList;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 public class NumeroTelefoneDAO {
 
-	public static void inserirTelfoneBanco(Pessoa novaPessoa) {
-		// TODO Auto-generated method stub
+	private static Session session;
+	
+	public NumeroTelefoneDAO(){
+		this.session = iniciarSessaoBanco();
+	}
 		
+	public static void inserirTelefoneBanco(NumeroTelefone novoTelefone) {
+		
+		System.out.println(novoTelefone.getNumero());
+		
+		Transaction transacao = session.beginTransaction();
+		session.save(novoTelefone);
+		transacao.commit();		
 	}
 	
 	private static Session iniciarSessaoBanco(){

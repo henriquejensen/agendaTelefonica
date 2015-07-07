@@ -13,10 +13,16 @@ public class PessoaDAO {
 		session = iniciarSessaoBanco();
 	}
 	
-	public static void inserirPessoaBanco(Pessoa novaPessoa) {		
-		Transaction transacao = session.beginTransaction();
-		session.save(novaPessoa);
+	public static Pessoa inserirPessoaBanco(Pessoa novaPessoa) {
+		
+		Transaction transacao = session.beginTransaction();		 
+		long id = (Long) session.save(novaPessoa);
 		transacao.commit();
+		
+		Pessoa idPessoa = new Pessoa();
+		
+		idPessoa.setId(id);		
+		return idPessoa;
 	}
 	
 	public static void atualizarPessoaBanco(Pessoa novaPessoa){

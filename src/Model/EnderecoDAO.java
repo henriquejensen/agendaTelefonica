@@ -14,11 +14,14 @@ public class EnderecoDAO {
 	}
 
 	public static Endereco inserirEnderecoBanco(Endereco novoEndereco) {
+		
 		Transaction transacao = session.beginTransaction();		 
 		long id = (Long) session.save(novoEndereco);
-		Endereco endereco = new Endereco();
-		endereco.setIdEndereco(id);
 		transacao.commit();
+		
+		Endereco endereco = new Endereco();
+		
+		endereco.setIdEndereco(id);		
 		return endereco;
 	}
 	
