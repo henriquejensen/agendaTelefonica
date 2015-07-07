@@ -2,24 +2,24 @@
 <testng-results skipped="0" failed="0" total="3" passed="3">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="80156" started-at="2015-07-07T14:34:01Z" finished-at="2015-07-07T14:35:21Z">
+  <suite name="Default suite" duration-ms="4257" started-at="2015-07-07T19:53:37Z" finished-at="2015-07-07T19:53:41Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="80156" started-at="2015-07-07T14:34:01Z" finished-at="2015-07-07T14:35:21Z">
-      <class name="Controller.PessoaTest">
-        <test-method status="PASS" signature="TestInserirChamandoInterface()[pri:0, instance:Controller.PessoaTest@184bc10]" name="TestInserirChamandoInterface" duration-ms="80034" started-at="2015-07-07T11:34:01Z" finished-at="2015-07-07T11:35:21Z">
+    <test name="Default test" duration-ms="4257" started-at="2015-07-07T19:53:37Z" finished-at="2015-07-07T19:53:41Z">
+      <class name="controller.InserirBancoTest">
+        <test-method status="PASS" signature="TestInserirChamandoInterface()[pri:0, instance:controller.InserirBancoTest@1f541ef]" name="TestInserirChamandoInterface" duration-ms="2651" started-at="2015-07-07T16:53:37Z" finished-at="2015-07-07T16:53:39Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestInserirChamandoInterface -->
-        <test-method status="PASS" signature="TestInserirNoBanco()[pri:0, instance:Controller.PessoaTest@184bc10]" name="TestInserirNoBanco" duration-ms="36" started-at="2015-07-07T11:35:21Z" finished-at="2015-07-07T11:35:21Z">
+        <test-method status="PASS" signature="TestInserirNoBanco()[pri:0, instance:controller.InserirBancoTest@1f541ef]" name="TestInserirNoBanco" duration-ms="1545" started-at="2015-07-07T16:53:39Z" finished-at="2015-07-07T16:53:41Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestInserirNoBanco -->
-        <test-method status="PASS" signature="TestInserirNoBancoDoisTelefones()[pri:0, instance:Controller.PessoaTest@184bc10]" name="TestInserirNoBancoDoisTelefones" duration-ms="75" started-at="2015-07-07T11:35:21Z" finished-at="2015-07-07T11:35:21Z">
+        <test-method status="PASS" signature="TestInserirNoBancoDoisTelefones()[pri:0, instance:controller.InserirBancoTest@1f541ef]" name="TestInserirNoBancoDoisTelefones" duration-ms="47" started-at="2015-07-07T16:53:41Z" finished-at="2015-07-07T16:53:41Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestInserirNoBancoDoisTelefones -->
-      </class> <!-- Controller.PessoaTest -->
+      </class> <!-- controller.InserirBancoTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

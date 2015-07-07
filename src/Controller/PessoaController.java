@@ -1,10 +1,9 @@
-package Controller;
+package controller;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
+import model.*;
 import br.com.caelum.vraptor.Resource;
-import Model.*;
 
 @Resource
 public class PessoaController {
@@ -12,6 +11,7 @@ public class PessoaController {
 	private static EnderecoDAO endereco = new EnderecoDAO();
 	private static PessoaDAO pessoa = new PessoaDAO();
 	private static NumeroTelefoneDAO telefoneBanco = new NumeroTelefoneDAO();
+	
 		
 	public static boolean inserirContato(Pessoa novaPessoa, ArrayList<NumeroTelefone> novoTelefone){
 		
@@ -29,5 +29,17 @@ public class PessoaController {
 		
 		return true;
 	}
-
+	
+	/*public static boolean removerContato(Pessoa removerPessoa){
+		PessoaDAO.removerPessoaBanco(removerPessoa);
+		return true;
+	}*/
+	
+	/*public static boolean buscarContato(Pessoa comparaPessoa) {
+		
+		if(PessoaDAO.buscarContato(comparaPessoa))
+			return true;
+		
+		return false;
+	}*/
 }

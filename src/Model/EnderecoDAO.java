@@ -1,41 +1,39 @@
-package Model;
+package model;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
 public class EnderecoDAO {
 	
-	private static Session session;
-	
-	public EnderecoDAO(){
-		session = iniciarSessaoBanco();
-	}
-
-	public static Endereco inserirEnderecoBanco(Endereco novoEndereco) {
+	public Endereco inserirEnderecoBanco(Endereco novoEndereco) {
 		
-		Transaction transacao = session.beginTransaction();		 
+		Session session = getSessionfactory().openSession();
+		session.beginTransaction();
 		long id = (Long) session.save(novoEndereco);
-		transacao.commit();
-		
+		session.getTransaction().commit();
+		session.close();
+						
 		Endereco endereco = new Endereco();
 		
 		endereco.setIdEndereco(id);		
 		return endereco;
 	}
+		
+	private static final SessionFactory sessionFactory = buildSessionFactory();
 	
-	private static Session iniciarSessaoBanco(){
-		/** Cria uma configuração*/
-		AnnotationConfiguration configuration = new AnnotationConfiguration();
-		
-		/** Lê o hibernate.cfg.xml*/
-		configuration.configure();
-		
-		SessionFactory factory = configuration.buildSessionFactory();
-		Session session = factory.openSession();
-		
-		return session;
-	}
+	private static SessionFactory buildSessionFactory() {
 
+		Configuration configuration = new Configuration().configure();
+		StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
+		serviceRegistryBuilder.applySettings(configuration.getProperties());
+		ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
+		return configuration.buildSessionFactory(serviceRegistry);
+	}
+	
+	public static SessionFactory getSessionfactory() {
+		return sessionFactory;
+	}
 }

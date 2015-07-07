@@ -1,38 +1,34 @@
-package Model;
+package model;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
 public class NumeroTelefoneDAO {
 
-	private static Session session;
-	
-	public NumeroTelefoneDAO(){
-		this.session = iniciarSessaoBanco();
-	}
+	private static final SessionFactory sessionFactory = buildSessionFactory();
+			
+	public void inserirTelefoneBanco(NumeroTelefone novoTelefone) {
 		
-	public static void inserirTelefoneBanco(NumeroTelefone novoTelefone) {
-		
-		System.out.println(novoTelefone.getNumero());
-		
-		Transaction transacao = session.beginTransaction();
+		Session session = getSessionfactory().openSession();
+		session.beginTransaction();
 		session.save(novoTelefone);
-		transacao.commit();		
+		session.getTransaction().commit();
+		session.close();	
+	}	
+
+	private static SessionFactory buildSessionFactory() {
+
+		Configuration configuration = new Configuration().configure();
+		StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
+		serviceRegistryBuilder.applySettings(configuration.getProperties());
+		ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
+		return configuration.buildSessionFactory(serviceRegistry);
 	}
 	
-	private static Session iniciarSessaoBanco(){
-		/** Cria uma configuração*/
-		AnnotationConfiguration configuration = new AnnotationConfiguration();
-		
-		/** Lê o hibernate.cfg.xml*/
-		configuration.configure();
-		
-		SessionFactory factory = configuration.buildSessionFactory();
-		Session session = factory.openSession();
-		
-		return session;
+	public static SessionFactory getSessionfactory() {
+		return sessionFactory;
 	}
-
 }

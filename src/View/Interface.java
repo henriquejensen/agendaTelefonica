@@ -1,10 +1,10 @@
-package View;
+package view;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Controller.PessoaController;
-import Model.*;
+import model.*;
+import controller.PessoaController;
 
 public class Interface {
 		

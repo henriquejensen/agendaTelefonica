@@ -1,23 +1,35 @@
-package Model;
+package model;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
 public class PessoaDAO {
 	
-	private static Session session;
+	private static final SessionFactory sessionFactory = buildSessionFactory();
 	
-	public PessoaDAO(){
-		session = iniciarSessaoBanco();
+	private static SessionFactory buildSessionFactory() {
+
+		Configuration configuration = new Configuration().configure();
+		StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
+		serviceRegistryBuilder.applySettings(configuration.getProperties());
+		ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
+		return configuration.buildSessionFactory(serviceRegistry);
 	}
 	
-	public static Pessoa inserirPessoaBanco(Pessoa novaPessoa) {
+	public static SessionFactory getSessionfactory() {
+		return sessionFactory;
+	}
+	
+	public Pessoa inserirPessoaBanco(Pessoa novaPessoa) {
 		
-		Transaction transacao = session.beginTransaction();		 
+		Session session = getSessionfactory().openSession();
+		session.beginTransaction();
 		long id = (Long) session.save(novaPessoa);
-		transacao.commit();
+		session.getTransaction().commit();
+		session.close();
 		
 		Pessoa idPessoa = new Pessoa();
 		
@@ -25,9 +37,9 @@ public class PessoaDAO {
 		return idPessoa;
 	}
 	
-	public static void atualizarPessoaBanco(Pessoa novaPessoa){
+	/*public static void atualizarPessoaBanco(Pessoa novaPessoa){	
 		 
-		/** carrega o produto do banco de dados */
+		*//** carrega o produto do banco de dados *//*
 		Pessoa pessoaAtualizar = (Pessoa) session.load(Pessoa.class, 1L);
 		
 		Transaction transacao = session.beginTransaction();
@@ -38,26 +50,29 @@ public class PessoaDAO {
 		transacao.commit();
 	}
 	
-	public static void removerPessoaBanco(){
+	public static void removerPessoaBanco(Pessoa removerPessoa){
 	     
-		/** carrega o produto do banco de dados */
+		*//** carrega o produto do banco de dados *//*
 	    Pessoa pessoaDelete = (Pessoa) session.load(Pessoa.class, 1L);
-	     
+	    
+	    //pessoaDelete.setDeletadoBanco(true);
+	    
+	    //System.out.println(pessoaDelete.getNome());
+	    
 	    Transaction tx = session.beginTransaction();
 	    session.update(pessoaDelete);
 	    tx.commit();
-	}
+	}*/
 	
-	private static Session iniciarSessaoBanco(){
-		/** Cria uma configuração*/
-		AnnotationConfiguration configuration = new AnnotationConfiguration();
-		
-		/** Lê o hibernate.cfg.xml*/
-		configuration.configure();
-		
-		SessionFactory factory = configuration.buildSessionFactory();
-		Session session = factory.openSession();
-		
-		return session;
-	}	
+
+	/*public static boolean buscarContato(Object object) {
+
+		Session session = getSessionfactory().openSession();
+
+		List<Object> lista = session.createCriteria(object.getClass()).add(Example.create(object)).list();
+
+		session.close();
+
+		return true;
+	}*/	
 }

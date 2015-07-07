@@ -1,12 +1,16 @@
-package Controller;
+package controller;
 
 import static org.testng.AssertJUnit.assertEquals;
-import java.util.ArrayList;
-import org.testng.annotations.Test;
-import Model.*;
-import View.Interface;
 
-public class PessoaTest{
+import java.util.ArrayList;
+
+import model.*;
+
+import org.testng.annotations.Test;
+
+import view.Interface;
+
+public class InserirBancoTest{
 	
 	private static Pessoa pessoa = new Pessoa();
 	private static Endereco endereco = new Endereco();
@@ -76,28 +80,14 @@ public class PessoaTest{
 		assertEquals("Cadastro realizado com sucesso", Interface.menu());
 	}
 	
-	@Test
-	public static void TestInserirContatoRepetido(){
+	/*@Test
+	public static void TestRemoverContatoBanco(){
 		
-		telefone = new NumeroTelefone();
 		pessoa = new Pessoa();
-		endereco = new Endereco();
 		
 		pessoa.setNome("Hérion");
 		
-		endereco.setRua("Rua do contra");
-		endereco.setNumeroCasa(159);
-		endereco.setBairro("Siri Cascudo");
-		endereco.setEstado("SP");
-		pessoa.setEndereco(endereco);
-		
-		telefone.setDdd("35");
-		telefone.setNumero("9638-5274");
-		telefone.setPessoa(pessoa);
-		
-		listaTelefone.add(telefone);
-		
-		assertEquals(false, PessoaController.inserirContato(pessoa, listaTelefone));
-	}
+		assertEquals(true, PessoaController.removerContato(pessoa));
+	}*/
 
 }

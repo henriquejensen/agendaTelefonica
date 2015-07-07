@@ -5,7 +5,7 @@
     <classes>
       <class name="Controller.PessoaTest">
         <methods>
-          <include name="TestInserirNoBancoDoisTelefones"/>
+          <include name="TestRemoverContatoBanco"/>
         </methods>
       </class> <!-- Controller.PessoaTest -->
     </classes>

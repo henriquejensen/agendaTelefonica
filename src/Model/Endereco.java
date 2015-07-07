@@ -1,10 +1,8 @@
-package Model;
+package model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import br.com.caelum.vraptor.Resource;
 
 @Entity
 public class Endereco {
