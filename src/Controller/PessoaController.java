@@ -1,8 +1,10 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.*;
+//import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 
 @Resource
@@ -12,8 +14,22 @@ public class PessoaController {
 	private static PessoaDAO pessoa = new PessoaDAO();
 	private static NumeroTelefoneDAO telefoneBanco = new NumeroTelefoneDAO();
 	
+	public String home() {
 		
-	public static boolean inserirContato(Pessoa novaPessoa, ArrayList<NumeroTelefone> novoTelefone){
+		return "Agenda Online";
+	}
+	
+	public List<String> listaContatos() {
+		
+		List<String> nomes = new ArrayList<String>();
+		nomes.add("Henrique");
+		nomes.add("Pro");
+		nomes.add("Jarbas");
+		
+		return nomes;
+	}
+	
+	public int inserirContato(Pessoa novaPessoa, ArrayList<NumeroTelefone> novoTelefone) {
 		
 		/**insere o endereço no banco e retorna o id deste endereço para ter o relacionamento
 		 * com a tabela pessoa*/
@@ -26,8 +42,7 @@ public class PessoaController {
 			novoTelefone.get(i).setPessoa(idPessoa);		
 			telefoneBanco.inserirTelefoneBanco(novoTelefone.get(i));
 		}		
-		
-		return true;
+		return 1;
 	}
 	
 	/*public static boolean removerContato(Pessoa removerPessoa){

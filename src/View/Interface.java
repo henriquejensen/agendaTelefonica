@@ -12,6 +12,7 @@ public class Interface {
 	private static int entrada;
 	private static int cadastro=1;
 	private static Pessoa pessoa = new Pessoa();
+	private static PessoaController inserir = new PessoaController();
 
 	public static void main(String[] args) {
 		menu();		
@@ -67,7 +68,7 @@ public class Interface {
 								System.out.println();
 							}
 						}while(cadastro!=0);
-						PessoaController.inserirContato(pessoa, listaTelefone);
+						inserir.inserirContato(pessoa, listaTelefone);
 						break;
 					case 2:
 						break;

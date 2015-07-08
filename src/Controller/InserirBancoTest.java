@@ -1,13 +1,9 @@
 package controller;
 
 import static org.testng.AssertJUnit.assertEquals;
-
 import java.util.ArrayList;
-
 import model.*;
-
 import org.testng.annotations.Test;
-
 import view.Interface;
 
 public class InserirBancoTest{
@@ -15,7 +11,8 @@ public class InserirBancoTest{
 	private static Pessoa pessoa = new Pessoa();
 	private static Endereco endereco = new Endereco();
 	private static NumeroTelefone telefone = new NumeroTelefone();
-	private static ArrayList<NumeroTelefone> listaTelefone = new ArrayList<NumeroTelefone>();	
+	private static ArrayList<NumeroTelefone> listaTelefone = new ArrayList<NumeroTelefone>();
+	private static PessoaController inserir = new PessoaController();
 	
 	@Test
 	public void TestInserirNoBanco(){		
@@ -36,7 +33,7 @@ public class InserirBancoTest{
 		
 		pessoa.setDeletadoBanco(false);
 		
-		assertEquals(true, PessoaController.inserirContato(pessoa, listaTelefone));
+		assertEquals(1, inserir.inserirContato(pessoa, listaTelefone));
 	}
 	
 	@Test
@@ -71,7 +68,7 @@ public class InserirBancoTest{
 		
 		pessoa.setDeletadoBanco(false);
 		
-		assertEquals(true, PessoaController.inserirContato(pessoa, listaTelefone));				
+		assertEquals(1, inserir.inserirContato(pessoa, listaTelefone));				
 	}
 	
 	@Test
