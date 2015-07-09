@@ -12,7 +12,10 @@ public class Interface {
 	private static int entrada;
 	private static int cadastro=1;
 	private static Pessoa pessoa = new Pessoa();
-	private static PessoaController inserir = new PessoaController();
+	private static EnderecoDAO endereco;
+	private static PessoaDAO pessoaBanco;
+	private static NumeroTelefoneDAO telefoneBanco;
+	private static PessoaController inserir = new PessoaController(pessoaBanco, telefoneBanco, endereco);
 
 	public static void main(String[] args) {
 		menu();		

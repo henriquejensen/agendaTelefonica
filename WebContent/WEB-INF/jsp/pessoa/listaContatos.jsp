@@ -8,12 +8,24 @@
     <title>Agenda Online</title>
   </head>
   <body>
-    <h1>Nomes cadastrados</h1>
-    <c:forEach var="contato" items="${stringList}">
-    	<td> ${contato} </td>
-    	<br>
+   <table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>ID</th>
+      <th>Endereco</th>
+    </tr>
+  </thead>
+  <tbody>
+    <c:forEach items="${pessoaList}" var="pessoa">
+      <tr>
+        <td>${pessoa.nome }</td>
+        <td>${pessoa.id }</td>
+        <td>${pessoa.endereco.rua}</td>
+      </tr>          
     </c:forEach>
-    <br>
+  </tbody>
+</table>
     <p><i>@JensenWeb</i></p>
   </body>
 </html>

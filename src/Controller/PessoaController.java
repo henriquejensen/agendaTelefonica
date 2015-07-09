@@ -10,21 +10,39 @@ import br.com.caelum.vraptor.Resource;
 @Resource
 public class PessoaController {
 	
-	private static EnderecoDAO endereco = new EnderecoDAO();
-	private static PessoaDAO pessoa = new PessoaDAO();
-	private static NumeroTelefoneDAO telefoneBanco = new NumeroTelefoneDAO();
+	private final EnderecoDAO endereco;
+	private final PessoaDAO pessoaBanco;
+	private final NumeroTelefoneDAO telefoneBanco;
+	
+	
+	public PessoaController(PessoaDAO novaPessoa, NumeroTelefoneDAO novoTelefone, EnderecoDAO novoEndereco) {
+		
+		this.endereco = novoEndereco;
+		this.pessoaBanco = novaPessoa;
+		this.telefoneBanco = novoTelefone;
+	}
 	
 	public String home() {
 		
 		return "Agenda Online";
 	}
 	
-	public List<String> listaContatos() {
+	public List<Pessoa> listaContatos() {
 		
-		List<String> nomes = new ArrayList<String>();
-		nomes.add("Henrique");
+		List<Pessoa> nomes = new ArrayList<Pessoa>();
+		
+		/*nomes.add("Henrique");
 		nomes.add("Pro");
-		nomes.add("Jarbas");
+		nomes.add("Jarbas");*/
+		
+		nomes = pessoaBanco.listaPessoaBanco();
+		
+		/*for (int i = 0; i < nomes.size(); i++) {
+			
+			System.out.println(nomes.get(i).getNome());
+			System.out.println(nomes.get(i).getId());
+			System.out.println(nomes.get(i).getEndereco().getRua());
+		}*/
 		
 		return nomes;
 	}
@@ -32,11 +50,11 @@ public class PessoaController {
 	public int inserirContato(Pessoa novaPessoa, ArrayList<NumeroTelefone> novoTelefone) {
 		
 		/**insere o endereço no banco e retorna o id deste endereço para ter o relacionamento
-		 * com a tabela pessoa*/
+		 * com a tabela pessoaBanco*/
 		Endereco idEndereco = endereco.inserirEnderecoBanco(novaPessoa.getEndereco());		
 		novaPessoa.setEndereco(idEndereco);
 		
-		Pessoa idPessoa = pessoa.inserirPessoaBanco(novaPessoa);
+		Pessoa idPessoa = pessoaBanco.inserirPessoaBanco(novaPessoa);
 					
 		for(int i=0; i < novoTelefone.size(); i++) {
 			novoTelefone.get(i).setPessoa(idPessoa);		
@@ -57,4 +75,5 @@ public class PessoaController {
 		
 		return false;
 	}*/
+	
 }

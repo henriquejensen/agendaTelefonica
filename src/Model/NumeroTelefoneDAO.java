@@ -6,6 +6,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import br.com.caelum.vraptor.ioc.Component;
+
+@Component
 public class NumeroTelefoneDAO {
 
 	private static final SessionFactory sessionFactory = buildSessionFactory();

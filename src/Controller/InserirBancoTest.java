@@ -12,7 +12,10 @@ public class InserirBancoTest{
 	private static Endereco endereco = new Endereco();
 	private static NumeroTelefone telefone = new NumeroTelefone();
 	private static ArrayList<NumeroTelefone> listaTelefone = new ArrayList<NumeroTelefone>();
-	private static PessoaController inserir = new PessoaController();
+	private static EnderecoDAO enderecoBanco;
+	private static PessoaDAO pessoaBanco;
+	private static NumeroTelefoneDAO telefoneBanco;
+	private static PessoaController inserir = new PessoaController(pessoaBanco, telefoneBanco, enderecoBanco);
 	
 	@Test
 	public void TestInserirNoBanco(){		
@@ -72,11 +75,30 @@ public class InserirBancoTest{
 	}
 	
 	@Test
-	public static void TestInserirChamandoInterface(){
+	public void TestInserirChamandoInterface(){
 		
 		assertEquals("Cadastro realizado com sucesso", Interface.menu());
 	}
 	
+	@Test
+	public void TestChamadaPaginaHome() {
+		
+		assertEquals("Agenda Online", inserir.home());
+	}
+	
+	/*@Test
+	public void TestListarContatosPagina() {
+		
+		List<String> nomes = new ArrayList<String>();
+		nomes.add("Henrique");
+		nomes.add("Pro");
+		nomes.add("Jarbas");
+		
+		assertEquals(nomes, inserir.listaContatos());
+	}*/
+	
+	
+
 	/*@Test
 	public static void TestRemoverContatoBanco(){
 		
@@ -86,5 +108,4 @@ public class InserirBancoTest{
 		
 		assertEquals(true, PessoaController.removerContato(pessoa));
 	}*/
-
 }

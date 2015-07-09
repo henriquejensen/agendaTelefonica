@@ -1,11 +1,16 @@
 package model;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import br.com.caelum.vraptor.ioc.Component;
+
+@Component
 public class PessoaDAO {
 	
 	private static final SessionFactory sessionFactory = buildSessionFactory();
@@ -25,7 +30,7 @@ public class PessoaDAO {
 	
 	public Pessoa inserirPessoaBanco(Pessoa novaPessoa) {
 		
-		Session session = getSessionfactory().openSession();
+		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		long id = (Long) session.save(novaPessoa);
 		session.getTransaction().commit();
@@ -62,17 +67,12 @@ public class PessoaDAO {
 	    Transaction tx = session.beginTransaction();
 	    session.update(pessoaDelete);
 	    tx.commit();
-	}*/
-	
-
-	/*public static boolean buscarContato(Object object) {
-
-		Session session = getSessionfactory().openSession();
-
-		List<Object> lista = session.createCriteria(object.getClass()).add(Example.create(object)).list();
-
-		session.close();
-
-		return true;
 	}*/	
+
+	public List<Pessoa> listaPessoaBanco() {
+		
+		Session session = sessionFactory.openSession();
+		return session.createCriteria(Pessoa.class).list();
+		
+	}	
 }

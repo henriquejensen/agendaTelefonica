@@ -1,24 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="3" passed="3">
+<testng-results skipped="0" failed="1" total="5" passed="4">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="4257" started-at="2015-07-07T19:53:37Z" finished-at="2015-07-07T19:53:41Z">
+  <suite name="Default suite" duration-ms="34116" started-at="2015-07-09T13:29:45Z" finished-at="2015-07-09T13:30:19Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="4257" started-at="2015-07-07T19:53:37Z" finished-at="2015-07-07T19:53:41Z">
+    <test name="Default test" duration-ms="34116" started-at="2015-07-09T13:29:45Z" finished-at="2015-07-09T13:30:19Z">
       <class name="controller.InserirBancoTest">
-        <test-method status="PASS" signature="TestInserirChamandoInterface()[pri:0, instance:controller.InserirBancoTest@1f541ef]" name="TestInserirChamandoInterface" duration-ms="2651" started-at="2015-07-07T16:53:37Z" finished-at="2015-07-07T16:53:39Z">
+        <test-method status="PASS" signature="TestChamadaPaginaHome()[pri:0, instance:controller.InserirBancoTest@19e5c2a]" name="TestChamadaPaginaHome" duration-ms="8" started-at="2015-07-09T10:29:45Z" finished-at="2015-07-09T10:29:45Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestChamadaPaginaHome -->
+        <test-method status="PASS" signature="TestInserirChamandoInterface()[pri:0, instance:controller.InserirBancoTest@19e5c2a]" name="TestInserirChamandoInterface" duration-ms="33628" started-at="2015-07-09T10:29:45Z" finished-at="2015-07-09T10:30:19Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestInserirChamandoInterface -->
-        <test-method status="PASS" signature="TestInserirNoBanco()[pri:0, instance:controller.InserirBancoTest@1f541ef]" name="TestInserirNoBanco" duration-ms="1545" started-at="2015-07-07T16:53:39Z" finished-at="2015-07-07T16:53:41Z">
+        <test-method status="PASS" signature="TestInserirNoBanco()[pri:0, instance:controller.InserirBancoTest@19e5c2a]" name="TestInserirNoBanco" duration-ms="238" started-at="2015-07-09T10:30:19Z" finished-at="2015-07-09T10:30:19Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestInserirNoBanco -->
-        <test-method status="PASS" signature="TestInserirNoBancoDoisTelefones()[pri:0, instance:controller.InserirBancoTest@1f541ef]" name="TestInserirNoBancoDoisTelefones" duration-ms="47" started-at="2015-07-07T16:53:41Z" finished-at="2015-07-07T16:53:41Z">
+        <test-method status="PASS" signature="TestInserirNoBancoDoisTelefones()[pri:0, instance:controller.InserirBancoTest@19e5c2a]" name="TestInserirNoBancoDoisTelefones" duration-ms="33" started-at="2015-07-09T10:30:19Z" finished-at="2015-07-09T10:30:19Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestInserirNoBancoDoisTelefones -->
+        <test-method status="FAIL" signature="TestListarContatosPagina()[pri:0, instance:controller.InserirBancoTest@19e5c2a]" name="TestListarContatosPagina" duration-ms="171" started-at="2015-07-09T10:30:19Z" finished-at="2015-07-09T10:30:19Z">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[expected:<[Henrique, Pro, Jarbas]> but was:<[model.Pessoa@840baa, model.Pessoa@101da1e]>]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: expected:<[Henrique, Pro, Jarbas]> but was:<[model.Pessoa@840baa, model.Pessoa@101da1e]>
+	at org.testng.AssertJUnit.fail(AssertJUnit.java:59)
+	at org.testng.AssertJUnit.failNotEquals(AssertJUnit.java:364)
+	at org.testng.AssertJUnit.assertEquals(AssertJUnit.java:80)
+	at org.testng.AssertJUnit.assertEquals(AssertJUnit.java:88)
+	at controller.InserirBancoTest.TestListarContatosPagina(InserirBancoTest.java:99)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestListarContatosPagina -->
       </class> <!-- controller.InserirBancoTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
