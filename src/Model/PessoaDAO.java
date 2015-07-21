@@ -2,39 +2,34 @@ package model;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class PessoaDAO {
 	
-	private static final SessionFactory sessionFactory = buildSessionFactory();
-	
-	private static SessionFactory buildSessionFactory() {
-
-		Configuration configuration = new Configuration().configure();
-		StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
-		serviceRegistryBuilder.applySettings(configuration.getProperties());
-		ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
-		return configuration.buildSessionFactory(serviceRegistry);
-	}
-	
-	public static SessionFactory getSessionfactory() {
-		return sessionFactory;
+	private static Session getSession(){
+		AnnotationConfiguration configuration = new AnnotationConfiguration();
+	    configuration.configure();	     
+	    SessionFactory factory = configuration.buildSessionFactory();
+	    Session session = factory.openSession();		
+		return session;
 	}
 	
 	public Pessoa inserirPessoaBanco(Pessoa novaPessoa) {
 		
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		
 		long id = (Long) session.save(novaPessoa);
-		session.getTransaction().commit();
-		session.close();
+		
+		tx.commit();
 		
 		Pessoa idPessoa = new Pessoa();
 		
@@ -42,37 +37,36 @@ public class PessoaDAO {
 		return idPessoa;
 	}
 	
-	/*public static void atualizarPessoaBanco(Pessoa novaPessoa){	
-		 
-		*//** carrega o produto do banco de dados *//*
-		Pessoa pessoaAtualizar = (Pessoa) session.load(Pessoa.class, 1L);
+	public List<Pessoa> carrega(Long id) {
 		
-		Transaction transacao = session.beginTransaction();
-		long idAtualizar = pessoaAtualizar.getId();
-		pessoaAtualizar = novaPessoa;
-		pessoaAtualizar.setId(idAtualizar);
-		session.update(pessoaAtualizar);
-		transacao.commit();
+		Session session = getSession();
+		
+		Criteria criteria = session.createCriteria(Pessoa.class);
+		
+		if(id != null) {
+			criteria.add(Restrictions.eq("id",id));
+		}
+	    //obtem a lista baseada na criteria
+	   	List<Pessoa> result = criteria.list();
+	   	if (result.size() == 0)
+	   		return null;
+	   	else 
+	   		return result;
 	}
 	
-	public static void removerPessoaBanco(Pessoa removerPessoa){
-	     
-		*//** carrega o produto do banco de dados *//*
-	    Pessoa pessoaDelete = (Pessoa) session.load(Pessoa.class, 1L);
-	    
-	    //pessoaDelete.setDeletadoBanco(true);
-	    
-	    //System.out.println(pessoaDelete.getNome());
-	    
-	    Transaction tx = session.beginTransaction();
-	    session.update(pessoaDelete);
-	    tx.commit();
-	}*/	
-
-	public List<Pessoa> listaPessoaBanco() {
+	public void atualiza(Pessoa pessoa) {
 		
-		Session session = sessionFactory.openSession();
-		return session.createCriteria(Pessoa.class).list();
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		session.update(pessoa);
+		tx.commit();	
+	}
+	
+	public void remove(Pessoa pessoa){
 		
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		session.update(pessoa);
+		tx.commit();
 	}	
 }

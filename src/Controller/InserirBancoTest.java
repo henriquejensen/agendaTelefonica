@@ -15,7 +15,7 @@ public class InserirBancoTest{
 	private static EnderecoDAO enderecoBanco;
 	private static PessoaDAO pessoaBanco;
 	private static NumeroTelefoneDAO telefoneBanco;
-	private static PessoaController inserir = new PessoaController(pessoaBanco, telefoneBanco, enderecoBanco);
+	private static PessoaController inserir = new PessoaController(pessoaBanco, telefoneBanco, enderecoBanco, null);
 	
 	@Test
 	public void TestInserirNoBanco(){		

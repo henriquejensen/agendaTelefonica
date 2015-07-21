@@ -22,6 +22,8 @@
         <td>${pessoa.nome }</td>
         <td>${pessoa.id }</td>
         <td>${pessoa.endereco.rua}</td>
+        <td><a href="edita?id=${pessoa.id }">Editar</a></td>
+		<td><a href="remove?id=${pessoa.id }">Remover</a></td>
       </tr>          
     </c:forEach>
   </tbody>
