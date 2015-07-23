@@ -161,4 +161,13 @@ public class PessoaController {
 		return "Alterado com sucesso";
 	}
 	
+	public void telaBuscaContato() {
+		
+	}
+	
+	public List<Pessoa> buscaContato(String nome) {
+		
+		return pessoaBanco.busca(nome);
+	}
+	
 }

@@ -12,8 +12,7 @@
 	      value="${telefone.pessoa.id }" />
 	    
 	    <input type="hidden" name="telefone.idTelefone" 
-	      value="${telefone.idTelefone }" />
-	    
+	      value="${telefone.idTelefone }" />	    
 	    
 	    <label for="rua">DDD:</label>
 	    <input id="ddd" type="text" name="telefone.ddd" value="${telefone.ddd }"/>

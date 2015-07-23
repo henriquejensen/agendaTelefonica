@@ -69,5 +69,20 @@ public class PessoaDAO {
 		Transaction tx = session.beginTransaction();
 		session.update(pessoa);
 		tx.commit();
+	}
+
+	public List<Pessoa> busca(String nome) {
+
+		Session session = getSession();
+		
+		Criteria criteria = session.createCriteria(Pessoa.class);
+				
+		criteria.add(Restrictions.eq("nome", nome));
+				
+		List<Pessoa> result = criteria.list();
+	   	if (result.size() == 0)
+	   		return null;
+	   	else 
+	   		return result;
 	}	
 }

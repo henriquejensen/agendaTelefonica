@@ -31,7 +31,7 @@
 	<td><h3><a href="../pessoa/remover"> Remover contato </a></h3></td>
 	</tr>
 	<tr>
-	<td><h3><a href="../pessoa/buscar"> Buscar um contato </a></h3></td>
+	<td><h3><a href="../pessoa/telaBuscaContato"> Buscar um contato </a></h3></td>
 	</tr>
 </table>
 		
