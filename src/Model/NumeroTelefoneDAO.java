@@ -1,37 +1,67 @@
 package model;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
+import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class NumeroTelefoneDAO {
 
-	private static final SessionFactory sessionFactory = buildSessionFactory();
+	private static Session getSession() {
+		AnnotationConfiguration configuration = new AnnotationConfiguration();
+	    configuration.configure();	     
+	    SessionFactory factory = configuration.buildSessionFactory();
+	    Session session = factory.openSession();		
+		return session;
+	}
 			
 	public void inserirTelefoneBanco(NumeroTelefone novoTelefone) {
 		
-		Session session = getSessionfactory().openSession();
-		session.beginTransaction();
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+
 		session.save(novoTelefone);
-		session.getTransaction().commit();
-		session.close();	
-	}	
 
-	private static SessionFactory buildSessionFactory() {
-
-		Configuration configuration = new Configuration().configure();
-		StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
-		serviceRegistryBuilder.applySettings(configuration.getProperties());
-		ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
-		return configuration.buildSessionFactory(serviceRegistry);
+		tx.commit();
 	}
 	
-	public static SessionFactory getSessionfactory() {
-		return sessionFactory;
+	public void atualizarTelefoneBanco(NumeroTelefone novoTelefone) {
+		
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+
+		session.update(novoTelefone);
+
+		tx.commit();
 	}
+
+	public List<NumeroTelefone> carrega(Long id) {
+
+		Session session = getSession();
+		
+		Criteria criteria = session.createCriteria(NumeroTelefone.class);
+		
+		Pessoa pessoa = new Pessoa();
+		
+		pessoa.setId(id);
+		
+		if(id != null) {
+			criteria.add(Restrictions.eq("pessoa", pessoa));
+		}
+	    //obtem a lista baseada na criteria
+	   	List<NumeroTelefone> result = criteria.list();
+	   	if (result.size() == 0)
+	   		return null;
+	   	else 
+	   		return result;		
+	}	
+
 }

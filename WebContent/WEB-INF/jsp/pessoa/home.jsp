@@ -1,16 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-  	<meta charset="UTF-8" />
-    <title>${string}</title>
-  </head>
-  <body>
-    <h1>Nomes cadastrados</h1>
-    <p>Cadastre um nome</p>
-    <br>
-    <p><i>@JensenWeb</i></p>
-  </body>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title> Agenda Telefonica </title>
+	</head>
+		<body>
+		
+		
+<table align="left">
+<tr>
+<td>
+	<h1 align="left"> Menu </h1>
+</td>
+</tr>
+	<tr>
+	<td><h3><a href="../pessoa/listaContatos"> Lista de contatos cadastrados </a></h3></td>
+	</tr>
+	<tr>
+	<td><h3><a href="../pessoa/formulario" > Adicionar um novo contato </a></h3></td>
+	</tr>
+	<tr>
+	<td><h3><a href="../pessoa/atualizarTelefone"> Atualizar telefone do contato </a></h3></td>
+	</tr>
+	<tr>
+	<td><h3><a href="../pessoa/atualizar"> Atualizar dados do contato </a></h3></td>
+	</tr>
+	<tr>
+	<td><h3><a href="../pessoa/remover"> Remover contato </a></h3></td>
+	</tr>
+	<tr>
+	<td><h3><a href="../pessoa/buscar"> Buscar um contato </a></h3></td>
+	</tr>
+</table>
+		
+</body>
 </html>

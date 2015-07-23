@@ -8,7 +8,7 @@
 <title>Contatos</title>
 </head>
 <body>
-	<h3> Contatos cadastrados </h3>
+	<h3> Atualizar dados do contato </h3>
  <table>
   <thead>
     <tr>
@@ -23,10 +23,10 @@
         <td>${pessoa.nome }</td>
         <td>${pessoa.id }</td>
         <td>${pessoa.endereco.rua}</td>
+        <td><a href="edita?id=${pessoa.id }"> Atualizar </a></td>
       </tr>          
     </c:forEach>
   </tbody>
  </table>
 </body>
 </html>
-

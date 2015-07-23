@@ -8,25 +8,21 @@
 <title>Contatos</title>
 </head>
 <body>
-	<h3> Contatos cadastrados </h3>
+	<h3> Atualizar telefone </h3>
  <table>
   <thead>
     <tr>
       <th>Nome</th>
-      <th>ID</th>
-      <th>Endereco</th>
     </tr>
   </thead>
   <tbody>
     <c:forEach items="${pessoaList}" var="pessoa">
       <tr>
         <td>${pessoa.nome }</td>
-        <td>${pessoa.id }</td>
-        <td>${pessoa.endereco.rua}</td>
+        <td><a href="editaTelefone?id=${pessoa.id }"> Atualizar telefone </a></td>
       </tr>          
     </c:forEach>
   </tbody>
  </table>
 </body>
 </html>
-

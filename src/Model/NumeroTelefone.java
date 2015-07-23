@@ -33,5 +33,11 @@ public class NumeroTelefone {
 	public void setDdd(String ddd) {
 		this.ddd = ddd;
 	}
+	public Long getIdTelefone() {
+		return idTelefone;
+	}
+	public void setIdTelefone(Long idTelefone) {
+		this.idTelefone = idTelefone;
+	}
 
 }

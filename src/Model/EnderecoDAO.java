@@ -5,54 +5,47 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
+import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.service.ServiceRegistry;
 
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class EnderecoDAO {
 	
+	private static Session getSession() {
+		AnnotationConfiguration configuration = new AnnotationConfiguration();
+	    configuration.configure();	     
+	    SessionFactory factory = configuration.buildSessionFactory();
+	    Session session = factory.openSession();		
+		return session;
+	}
+	
 	public Endereco inserirEnderecoBanco(Endereco novoEndereco) {
 		
-		Session session = getSessionfactory().openSession();
-		session.beginTransaction();
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		
 		long id = (Long) session.save(novoEndereco);
-		session.getTransaction().commit();
-		session.close();
+
+		tx.commit();
 						
 		Endereco endereco = new Endereco();
 		
 		endereco.setIdEndereco(id);		
 		return endereco;
 	}
-		
-	private static final SessionFactory sessionFactory = buildSessionFactory();
-	
-	private static SessionFactory buildSessionFactory() {
-
-		Configuration configuration = new Configuration().configure();
-		StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
-		serviceRegistryBuilder.applySettings(configuration.getProperties());
-		ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
-		return configuration.buildSessionFactory(serviceRegistry);
-	}
-	
-	public static SessionFactory getSessionfactory() {
-		
-		return sessionFactory;
-	}
 
 	public List<Endereco> carrega(Endereco endereco) {
 		
-		Session session = sessionFactory.openSession();
+		Session session = getSession();
 		
 		Criteria criteria = session.createCriteria(Endereco.class);
 		
 		if(endereco.getIdEndereco() != null) {
-			criteria.add(Restrictions.eq("id",endereco.getIdEndereco()));
+			criteria.add(Restrictions.eq("id", endereco.getIdEndereco()));
 		}
 	    //obtem a lista baseada na criteria
 	   	List<Endereco> result = criteria.list();
@@ -60,5 +53,13 @@ public class EnderecoDAO {
 	   		return null;
 	   	else 
 	   		return result;
+	}
+
+	public void atualiza(Endereco endereco) {
+
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		session.update(endereco);
+		tx.commit();		
 	}
 }

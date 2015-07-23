@@ -42,9 +42,10 @@ public class PessoaDAO {
 		Session session = getSession();
 		
 		Criteria criteria = session.createCriteria(Pessoa.class);
-		
+		criteria.add(Restrictions.eq("deletadoBanco", false));
+				
 		if(id != null) {
-			criteria.add(Restrictions.eq("id",id));
+			criteria.add(Restrictions.eq("id", id));
 		}
 	    //obtem a lista baseada na criteria
 	   	List<Pessoa> result = criteria.list();

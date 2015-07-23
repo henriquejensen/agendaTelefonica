@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.*;
-//import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.ValidationMessage;
 
 @Resource
 public class PessoaController {
@@ -15,14 +16,17 @@ public class PessoaController {
 	private final PessoaDAO pessoaBanco;
 	private final NumeroTelefoneDAO telefoneBanco;
 	private final Result result;
+	private final Validator validator;
 	
 	
-	public PessoaController(PessoaDAO novaPessoa, NumeroTelefoneDAO novoTelefone, EnderecoDAO novoEndereco, Result result) {
+	public PessoaController(PessoaDAO novaPessoa, NumeroTelefoneDAO novoTelefone,
+								EnderecoDAO novoEndereco, Result result, Validator validator) {
 		
 		this.enderecoBanco = novoEndereco;
 		this.pessoaBanco = novaPessoa;
 		this.telefoneBanco = novoTelefone;
 		this.result = result;
+		this.validator = validator;
 	}
 	
 	public String home() {
@@ -30,14 +34,35 @@ public class PessoaController {
 		return "Agenda Online";
 	}
 	
-	public void adiciona(Pessoa pessoa, Endereco endereco, NumeroTelefone telefone) {
+	public void adiciona(Pessoa pessoa, Endereco endereco, List<NumeroTelefone> telefone) {
 		
-		telefone.setPessoa(pessoa);
+		if(pessoa.getNome() == null || pessoa.getNome().length() < 3) {
+			
+			validator.add(new ValidationMessage("Nome é obrigatório e precisa ter mais de 3 letras",
+			        "pessoa.nome"));
+		}
+		
+		if(telefone.get(0).getNumero() == null) {
+			
+			validator.add(new ValidationMessage("Pelo menos um telefone deverá ser cadastrado",
+			        "telefone.numero"));
+		}
+				
+		validator.onErrorUsePageOf(PessoaController.class).formulario();
+		
 		pessoa.setEndereco(endereco);
 				
 		enderecoBanco.inserirEnderecoBanco(endereco);
-		pessoaBanco.inserirPessoaBanco(pessoa);		
-		telefoneBanco.inserirTelefoneBanco(telefone);		
+		pessoaBanco.inserirPessoaBanco(pessoa);
+		
+		for(NumeroTelefone tel:telefone) {
+			
+			if(tel != null) {
+				
+				tel.setPessoa(pessoa);
+				telefoneBanco.inserirTelefoneBanco(tel);
+			}	
+		}
 		result.redirectTo(this).listaContatos();
 	}
 	
@@ -69,6 +94,11 @@ public class PessoaController {
 		
 	}
 	
+	public List<Pessoa> atualizar() {
+		
+		return this.listaContatos();
+	}
+	
 	public Pessoa edita(Long id) {
 	 
 		List<Pessoa> pessoa = pessoaBanco.carrega(id);
@@ -76,23 +106,59 @@ public class PessoaController {
 		return pessoa.get(0);
 	}
 	
-	public void altera(Pessoa pessoa) {
-	
-		System.out.println(pessoa.getEndereco());
+	public void altera(Pessoa pessoa) {	
 		
-		//List<Endereco> endereco = enderecoBanco.carrega(pessoa.);
+		List<Pessoa> oldPessoa = pessoaBanco.carrega(pessoa.getId());
 		
-		
-		
-		/*pessoa.setEndereco(endereco.get(0));*/
-	    /*pessoaBanco.atualiza(pessoa);
-	    result.redirectTo(PessoaController.class).home();*/
+		pessoa.setId(oldPessoa.get(0).getId());
+		pessoa.getEndereco().setIdEndereco(oldPessoa.get(0).getEndereco().getIdEndereco());
+				
+		enderecoBanco.atualiza(pessoa.getEndereco());
+		pessoaBanco.atualiza(pessoa);
+	    result.redirectTo(PessoaController.class).home();
 	}
 	
-	public void remove(Long id) {
+	public List<Pessoa> remover(Long id) {
+				
+		return this.listaContatos();
+	}
+	
+	public Pessoa confirmacaoRemover(Long id) {
 		
-		List<Pessoa> pessoa = pessoaBanco.carrega(id);		
+		List<Pessoa> pessoa = pessoaBanco.carrega(id);
+		
+		return pessoa.get(0);
+	}
+	
+	public void excluir(Long id) {
+		
+		List<Pessoa> pessoa = pessoaBanco.carrega(id);
+		pessoa.get(0).setDeletadoBanco(true);
 		pessoaBanco.remove(pessoa.get(0));
 		result.redirectTo(PessoaController.class).listaContatos();
-	}	
+	}
+	
+	public List<Pessoa> atualizarTelefone() {
+		
+		return this.listaContatos();
+	}
+	
+	public List<NumeroTelefone> editaTelefone(long id) {
+		
+		List<NumeroTelefone> telefones = new ArrayList<NumeroTelefone>();
+		telefones = telefoneBanco.carrega(id);
+		
+		return telefones;
+	}
+	
+	public String alteraTelefone(List<NumeroTelefone> telefone) {
+				
+		for(NumeroTelefone tel:telefone) {
+			
+			telefoneBanco.atualizarTelefoneBanco(tel);
+		}
+		
+		return "Alterado com sucesso";
+	}
+	
 }

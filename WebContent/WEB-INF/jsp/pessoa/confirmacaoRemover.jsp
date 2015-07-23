@@ -1,4 +1,4 @@
-<form action="altera">
+<form action="excluir">
   <fieldset>
     <legend>Editar dados de um contato</legend>
     
@@ -12,20 +12,22 @@
         
     <label for="rua">Rua:</label>
     <input id="endereco" type="text" 
-      name="pessoa.endereco.rua" value="${pessoa.endereco.rua }"/> 
+      name="endereco.rua" value="${pessoa.endereco.rua }"/> 
       
     <label for="numero">Nº Casa:</label>
     <input id="endereco" type="text" 
-      name="pessoa.endereco.numeroCasa" value="${pessoa.endereco.numeroCasa }"/>
+      name="endereco.numeroCasa" value="${pessoa.endereco.numeroCasa }"/>
       
     <label for="bairro">Bairro:</label>
     <input id="endereco" type="text" 
-      name="pessoa.endereco.bairro" value="${pessoa.endereco.bairro }"/>
+      name="endereco.bairro" value="${pessoa.endereco.bairro }"/>
       
     <label for="estado">Estado:</label>
     <input id="endereco" type="text" 
-      name="pessoa.endereco.estado" value="${pessoa.endereco.estado }"/>    
-      
-    <button type="submit">Enviar</button>
+      name="endereco.estado" value="${pessoa.endereco.estado }"/>    
+    <br>
+    
+    <button type="submit">Confirmar</button>
+    <button type="submit">Cancelar</button>
   </fieldset>
 </form>

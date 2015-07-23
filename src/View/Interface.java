@@ -15,7 +15,7 @@ public class Interface {
 	private static EnderecoDAO endereco;
 	private static PessoaDAO pessoaBanco;
 	private static NumeroTelefoneDAO telefoneBanco;
-	private static PessoaController inserir = new PessoaController(pessoaBanco, telefoneBanco, endereco, null);
+	private static PessoaController inserir = new PessoaController(pessoaBanco, telefoneBanco, endereco, null, null);
 
 	public static void main(String[] args) {
 		menu();		
